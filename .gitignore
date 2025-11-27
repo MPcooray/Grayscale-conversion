@@ -1,0 +1,42 @@
+# Compiled object files and build artifacts
+*.o
+*.obj
+*.exe
+*.out
+
+# Executables produced by this project
+grayscale_serial
+grayscale_openmp
+grayscale_mpi
+
+# macOS
+.DS_Store
+
+# Debug symbol bundles
+*.dSYM/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+env/
+venv/
+
+# Generated grayscale outputs (ignore generated images)
+myphoto_gray*.pgm
+myphoto_gray*.ppm
+
+# Logs and temporary files
+*.log
+*~
+
+# IDE / editor
+.vscode/
+.idea/
+
+# Coverage / metadata
+.coverage
+pip-wheel-metadata/
+
+# Misc
+tags
