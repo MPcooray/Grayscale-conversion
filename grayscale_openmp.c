@@ -1,20 +1,16 @@
-// grayscale_openmp_simple.c
-// Simple OpenMP grayscale converter (student-friendly)
-// Compile: gcc-15 -O3 -fopenmp grayscale_openmp_simple.c -o grayscale_openmp_simple
-// Run:   OMP_NUM_THREADS=4 ./grayscale_openmp_simple input.ppm output.pgm
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include <omp.h>
 
-/* Simple P6 PPM reader (assumes well-formed file). Returns malloc'd RGB buffer. */
+/* Simple P6 PPM reader */
 unsigned char* read_ppm_simple(const char *name, int *w, int *h) {
     FILE *f = fopen(name, "rb");
     if (!f) { perror("fopen"); return NULL; }
-    char magic[3]; fscanf(f, "%2s", magic);      // expect "P6"
+    char magic[3]; fscanf(f, "%2s", magic);      
     int width, height, maxv;
-    // skip comments & read width height maxv in a simple way
+    
     fscanf(f, "%d %d %d", &width, &height, &maxv);
     fgetc(f); // consume single whitespace after header
     size_t n = (size_t)width * height * 3;
@@ -51,7 +47,7 @@ int main(int argc, char **argv) {
     if (!gray) { free(rgb); return 1; }
 
     // --- Parallel region: each iteration handles one pixel (data-parallel)
-    double t0 = omp_get_wtime();            // lecture: use omp_get_wtime for timings
+    double t0 = omp_get_wtime();            
     #pragma omp parallel for schedule(static)
     for (size_t i = 0; i < pixels; ++i) {
         size_t off = i * 3;
@@ -74,3 +70,7 @@ int main(int argc, char **argv) {
     free(gray);
     return 0;
 }
+
+
+// Compile: gcc-15 -O3 -fopenmp grayscale_openmp_simple.c -o grayscale_openmp_simple
+// Run:   OMP_NUM_THREADS=4 ./grayscale_openmp_simple input.ppm output.pgm

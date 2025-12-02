@@ -1,17 +1,14 @@
-// grayscale_mpi_simple.c
-// Simple MPI grayscale converter (student version)
-// Compile: mpicc -O3 grayscale_mpi_simple.c -o grayscale_mpi_simple
-// Run:     mpirun -np 4 ./grayscale_mpi_simple input.ppm output.pgm
+
 
 #include <mpi.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-/* Very simple P6 reader. Assumes well-formed P6 file (no fancy comment handling). */
+/* P6 reader. */
 unsigned char* read_ppm_simple(const char *name, int *w, int *h) {
     FILE *f = fopen(name, "rb");
     if (!f) { perror("fopen"); return NULL; }
-    char magic[3]; fscanf(f, "%2s", magic);        // "P6"
+    char magic[3]; fscanf(f, "%2s", magic);        
     int width, height, maxv;
     fscanf(f, "%d %d %d", &width, &height, &maxv);
     fgetc(f); // skip single whitespace
@@ -24,7 +21,7 @@ unsigned char* read_ppm_simple(const char *name, int *w, int *h) {
     return buf;
 }
 
-/* Very simple P5 writer */
+/* P5 writer */
 int write_pgm_simple(const char *name, unsigned char *gray, int w, int h) {
     FILE *f = fopen(name, "wb");
     if (!f) { perror("fopen"); return -1; }
@@ -57,7 +54,7 @@ int main(int argc, char **argv) {
     MPI_Bcast(&width, 1, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Bcast(&height, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
-    /* Decide how many rows per rank (balanced) */
+    /* Decide how many rows per rank */
     int base = height / nprocs;
     int rem = height % nprocs;
 
@@ -130,3 +127,8 @@ int main(int argc, char **argv) {
     MPI_Finalize();
     return 0;
 }
+
+
+
+// Compile: mpicc -O3 grayscale_mpi_simple.c -o grayscale_mpi_simple
+// Run:     mpirun -np 4 ./grayscale_mpi_simple input.ppm output.pgm

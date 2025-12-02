@@ -1,6 +1,4 @@
-// grayscale_serial.c
-// Compile: gcc -O3 grayscale_serial.c -o grayscale_serial
-// Run:     ./grayscale_serial input.ppm output.pgm
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,8 +10,7 @@ static double now_seconds(void){
     return t.tv_sec + t.tv_usec*1e-6;
 }
 
-/* Read P6 PPM (binary RGB). Returns malloc'd buffer (3*w*h bytes) or NULL on error.
-   The function sets *w and *h. */
+/* Read P6 PPM (binary RGB). */
 unsigned char* read_ppm(const char* fname, int *w, int *h){
     FILE *f = fopen(fname,"rb");
     if(!f){ perror("fopen"); return NULL; }
@@ -30,9 +27,9 @@ unsigned char* read_ppm(const char* fname, int *w, int *h){
     int width=0, height=0, maxv=0;
     int c = fgetc(f); // consume single whitespace after magic token
     while (c == '\n' || c == '\r' || c == ' ' || c == '\t') c = fgetc(f);
-    // now c is first char of next token or '#'
+    
     while (c == '#') {
-        // skip comment line
+        
         while (c != '\n' && c != EOF) c = fgetc(f);
         // skip whitespace to next token
         c = fgetc(f);
@@ -45,7 +42,7 @@ unsigned char* read_ppm(const char* fname, int *w, int *h){
         fclose(f); return NULL;
     }
     if (maxv != 255) {
-        // We can still handle other maxv values but this simple loader expects 255.
+        
         fprintf(stderr, "Warning: maxv != 255 (maxv=%d). Values will be scaled.\n", maxv);
     }
     // consume single whitespace (one byte) after header to reach binary data
@@ -113,3 +110,8 @@ int main(int argc, char** argv){
     free(rgb); free(gray);
     return 0;
 }
+
+
+
+// Compile: gcc -O3 grayscale_serial.c -o grayscale_serial
+// Run:     ./grayscale_serial input.ppm output.pgm
