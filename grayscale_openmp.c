@@ -72,5 +72,7 @@ int main(int argc, char **argv) {
 }
 
 
-// Compile: gcc-15 -O3 -fopenmp grayscale_openmp_simple.c -o grayscale_openmp_simple
-// Run:   OMP_NUM_THREADS=4 ./grayscale_openmp_simple input.ppm output.pgm
+// Compile: gcc-15 -O3 -fopenmp grayscale_openmp.c -o grayscale_openmp
+// Run:   export OMP_NUM_THREADS=4   
+        // ./grayscale_openmp myphoto.ppm myphoto_gray_omp.pgm
+//Convert ppm to jpg :  python3 pgm_to_jpg.py myphoto_gray_omp.pgm

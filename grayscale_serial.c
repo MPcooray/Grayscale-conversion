@@ -114,4 +114,5 @@ int main(int argc, char** argv){
 
 
 // Compile: gcc -O3 grayscale_serial.c -o grayscale_serial
-// Run:     ./grayscale_serial input.ppm output.pgm
+// Run:     ./grayscale_serial myphoto.ppm myphoto_gray_serial.pgm
+// Convert ppm to jpg : python3 pgm_to_jpg.py myphoto_gray_serial.pgm

@@ -130,5 +130,6 @@ int main(int argc, char **argv) {
 
 
 
-// Compile: mpicc -O3 grayscale_mpi_simple.c -o grayscale_mpi_simple
-// Run:     mpirun -np 4 ./grayscale_mpi_simple input.ppm output.pgm
+// Compile: mpicc -O3 grayscale_mpi.c -o grayscale_mpi
+// Run:     mpirun -np 4 ./grayscale_mpi myphoto.ppm myphoto_gray_mpi.pgm
+//Convert ppm to jpg : python3 pgm_to_jpg.py myphoto_gray_mpi.pgm 
