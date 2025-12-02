@@ -111,5 +111,4 @@ python3 pgm_to_png.py myphoto_gray_serial.pgm
 - For CUDA builds, ensure the CUDA toolkit version matches your driver and GPU.
 - Always open PPM/PGM files in binary mode in code (`"rb"`/`"wb"`).
 
-**License**
-No license specified. Add one if you plan to publish or share this code.
+
