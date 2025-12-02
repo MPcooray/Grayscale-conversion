@@ -68,10 +68,3 @@ python3 pgm_to_jpg.py myphoto_gray_serial.pgm
 python3 pgm_to_png.py myphoto_gray_serial.pgm
 ```
 
-**Notes & tips**
-- Ensure you open files in binary mode when reading/writing PPM/PGM (`"rb"` / `"wb"`).
-- If you need reproducible benchmarks, use `PGM` to avoid codec overhead.
-- The repository's `.gitignore` ignores generated PGM/PPM outputs and compiled binaries.
-
-**License**
-Choose a license for this project (no license specified by default).
